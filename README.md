@@ -1,3 +1,8 @@
+## Testnet contract
+`sales.tokenhub.testnet`
+
+## Sample commands
+```
 $ near dev-deploy out/main.wasm 
 Starting deployment. Account id: dev-1644749916032-36742738579718, node: https://rpc.testnet.near.org, helper: https://helper.testnet.near.org, file: out/main.wasm
 Transaction Id 8okwhqNFRELYqecWWMX8Vmw7Kh3huLQXT717C9TMnDJr
@@ -68,5 +73,4 @@ get sha256
 $ curl -s https://raw.githubusercontent.com/lightsea90/token-factory/main/package.json | sha256sum 2>/dev/null
 403c409b69b67fcb15493d97c9b9fdcc2d1de25609b7ea46469ed582d8fc3693  -
 
-
-sales.tokenhub.testnet
+```
