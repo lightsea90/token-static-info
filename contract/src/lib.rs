@@ -11,6 +11,7 @@ use near_sdk::{env, near_bindgen, assert_one_yocto};
 use near_sdk::collections::UnorderedMap;
 use near_sdk::AccountId;
 use near_sdk::json_types::Base64VecU8;
+use near_sdk::serde_json::{json, Value};
 
 near_sdk::setup_alloc!();
 
@@ -87,16 +88,19 @@ impl Contract {
         }
     }
 
-    pub fn get_campaign_list(&self, from_index: u64, limit: u64) -> Vec<(u64, Campaign)> {
+    pub fn get_campaign_list(&self, from_index: u64, limit: u64) -> Value {
         let keys = self.campaigns.keys_as_vector();
         let values = self.campaigns.values_as_vector();
-        (from_index..std::cmp::min(from_index + limit, self.campaigns.len()))
-            .map(|index| {
-                let id = keys.get(index).unwrap();
-                let campaign = values.get(index).unwrap();
-                (id, campaign.into())
-            })
-            .collect()
+        let mut result = json!([]);
+        for index in from_index..std::cmp::min(from_index + limit, self.campaigns.len()) {
+            let id = keys.get(index).unwrap();
+            let campaign = values.get(index).unwrap();
+            result.as_array_mut().unwrap().push(json!([id, campaign]));
+        }
+        return json!({
+            "total": keys.len(),
+            "result": result,
+        });
     }
 
 }
