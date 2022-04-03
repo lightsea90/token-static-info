@@ -103,5 +103,9 @@ impl Contract {
         });
     }
 
+    pub fn get_owner(&self) -> AccountId {
+        self.owner_id.clone()
+    }
+
 }
 
